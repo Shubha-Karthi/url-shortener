@@ -3,22 +3,18 @@ import string
 import json
 import os
 
-# File to store data
 FILE_NAME = "url_data.json"
 
-# Load existing data
 def load_data():
     if os.path.exists(FILE_NAME):
         with open(FILE_NAME, "r") as file:
             return json.load(file)
     return {}
 
-# Save data to file
 def save_data(data):
     with open(FILE_NAME, "w") as file:
         json.dump(data, file)
 
-# Generate unique short code
 def generate_code(data, length=6):
     chars = string.ascii_letters + string.digits
     
@@ -27,9 +23,7 @@ def generate_code(data, length=6):
         if code not in data:
             return code
 
-# Shorten URL
 def shorten_url(data, long_url):
-    # Check duplicate
     for code, url in data.items():
         if url == long_url:
             return code
@@ -39,11 +33,9 @@ def shorten_url(data, long_url):
     save_data(data)
     return code
 
-# Retrieve original URL
 def retrieve_url(data, code):
     return data.get(code, None)
 
-# Display all URLs
 def show_all(data):
     if not data:
         print("No URLs stored.")
@@ -52,7 +44,6 @@ def show_all(data):
     for code, url in data.items():
         print(f"{code} → {url}")
 
-# Main program
 def main():
     data = load_data()
 
